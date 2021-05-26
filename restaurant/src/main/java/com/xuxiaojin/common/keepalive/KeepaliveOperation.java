@@ -1,7 +1,6 @@
 package com.xuxiaojin.common.keepalive;
 
 import com.xuxiaojin.common.Operation;
-import com.xuxiaojin.common.OperationResult;
 import lombok.Data;
 import lombok.extern.java.Log;
 

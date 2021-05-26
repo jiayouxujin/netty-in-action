@@ -1,10 +1,8 @@
 package com.xuxiaojin.server.codec;
 
-import com.xuxiaojin.common.RequestMessage;
 import com.xuxiaojin.common.ResponseMessage;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.handler.codec.MessageToMessageDecoder;
 import io.netty.handler.codec.MessageToMessageEncoder;
 
 import java.util.List;
