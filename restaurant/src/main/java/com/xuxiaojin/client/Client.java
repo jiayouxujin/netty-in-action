@@ -1,9 +1,6 @@
 package com.xuxiaojin.client;
 
-import com.xuxiaojin.client.codec.OrderFrameDecoder;
-import com.xuxiaojin.client.codec.OrderFrameEncoder;
-import com.xuxiaojin.client.codec.OrderProtocolDecoder;
-import com.xuxiaojin.client.codec.OrderProtocolEncoder;
+import com.xuxiaojin.client.codec.*;
 import com.xuxiaojin.common.RequestMessage;
 import com.xuxiaojin.common.order.OrderOperation;
 import com.xuxiaojin.util.IdUtil;
@@ -35,15 +32,17 @@ public class Client {
                 pipeline.addLast(new OrderProtocolEncoder());
                 pipeline.addLast(new OrderProtocolDecoder());
 
+                pipeline.addLast(new OperationToRequestMessageEncoder());
                 pipeline.addLast(new LoggingHandler(LogLevel.INFO));
             }
         });
 
         ChannelFuture channelFuture = bootstrap.connect("127.0.0.1", 8090);
-        channelFuture.sync();
-        RequestMessage tudo = new RequestMessage(IdUtil.nextId(), new OrderOperation(1010, "tudo"));
 
-        channelFuture.channel().writeAndFlush(tudo);
+        channelFuture.sync();
+        OrderOperation operation = new OrderOperation(1001, "tudo");
+        RequestMessage requestMessage = new RequestMessage(IdUtil.nextId(), operation);
+        channelFuture.channel().writeAndFlush(requestMessage);
         channelFuture.channel().closeFuture().get();
     }
 }
